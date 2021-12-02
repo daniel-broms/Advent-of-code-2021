@@ -43,12 +43,3 @@ for (i in 1:(length(t)/2)){
 hpos * depth   #2134882034 : Correct
 
 
-#################################################################
-#Try using tidyr #separate" to split the string into two columns:
-input <- readLines("Day 2/test.txt", )    #sample input
-t <- tibble(input)
-
-# syntax : separate(data frame, col=target column in tibble, into=names of new columns, sep= separator expression)
-t <-       separate(t,          col=input,                   into=c('dir', 'qty')     , sep= ' '                 )     
-
-
