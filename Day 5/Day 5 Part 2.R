@@ -1,9 +1,9 @@
 #day 5 part 2:
 
 #At how many points do at least two lines overlap?
-input <- readLines("Day 5/test.txt", )    #sample input
-#input <- readLines("Day 5/input.txt", )   #puzzle input
-
+#input <- readLines("Day 5/test.txt", )    #sample input
+input <- readLines("Day 5/input.txt", )   #puzzle input
+nlines   <- length(input) 
 
 #format input to a 4-column matrix of integers.
 l <- input        |> 
@@ -18,12 +18,11 @@ l <- t(l)
 colnames(l) <- c('x1','y1','x2','y2')
 
 #Render lines, find overlaps.
-nlines   <- length(input)  
 maxcoord <- max(l) + 1
 m        <- matrix(0,nrow=maxcoord,ncol=maxcoord)
 yinc     <- 0
 
-for(i in 1:nrow(t)){
+for(i in 1:nrow(l)){
   if(l[i,'x1'] == l[i,'x2']){
     
     #render a horizontal line
@@ -42,7 +41,7 @@ for(i in 1:nrow(t)){
     
     #render a diagonal line
     ypos <- l[i,'y1'] 
-    if(t[i,'y1'] > t[i,'y2']) {yinc <- -1} else {yinc <- 1}
+    if(l[i,'y1'] > l[i,'y2']) {yinc <- -1} else {yinc <- 1}
     
     for(xpos in l[i,'x1']: l[i,'x2']){
       m[xpos+1, ypos+1 ] <- m[xpos+1, ypos+1 ] + 1
@@ -52,4 +51,3 @@ for(i in 1:nrow(t)){
 }
 
 sum(m>1)  #12 for test input, 21140 for real input:  correct!
-
