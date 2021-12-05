@@ -1,8 +1,8 @@
 #day 5 part 2:
 
 #At how many points do at least two lines overlap?
-#input <- readLines("Day 5/test.txt", )    #sample input
-input <- readLines("Day 5/input.txt", )   #puzzle input
+input <- readLines("Day 5/test.txt", )    #sample input
+#input <- readLines("Day 5/input.txt", )   #puzzle input
 nlines   <- length(input) 
 
 #format input to a 4-column matrix of integers.
@@ -11,11 +11,10 @@ l <- input        |>
   unlist()        |> 
   str_split( ',') |> 
   unlist()        |> 
-  as.integer() 
-
-dim(l) <- c(4,nlines)
-l <- t(l)
-colnames(l) <- c('x1','y1','x2','y2')
+  as.integer()    |>
+  `dim<-` (c(4,nlines)) |>
+  t()             |>
+  `colnames<-`(c('x1','y1','x2','y2')) 
 
 #Render lines, find overlaps.
 maxcoord <- max(l) + 1
