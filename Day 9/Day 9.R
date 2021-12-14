@@ -46,16 +46,16 @@ getneighbors <- function(t,i,j){
 basin_size <- vector(mode="integer")
 
 for(basin in 1:length(lp)){
-
+  
   #make a data frame for each basin, initialize with the low point coordinates.
   df <- data.frame(Y=lp[[basin]][1], X=lp[[basin]][2])
-   
+  
   #loop through all basin members, add new members until no new members are found in a whole iteration
   repeat{
     before <- nrow(df)
-      for(i in 1:before){
-        df <- addneighbors(t, df[i,1], df[i,2] , df)  #add (new) neighbors to each member
-      }
+    for(i in 1:before){
+      df <- addneighbors(t, df[i,1], df[i,2] , df)  #add (new) neighbors to each member
+    }
     if(nrow(df)==before){break}
   }
   print(c(basin, nrow(df)))
