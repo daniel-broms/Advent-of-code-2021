@@ -105,12 +105,10 @@ moveantipods <- function(state){
     
     #If this is a final state (all antipods are in their rooms): record the total cost and stop.
     if(sum(substr(currentstate,1,1) == substr(names(currentstate),2,2)) == length(antipods)){
-      print(currentstatecost) #12521 for test problem,
+      print(currentstatecost) #this is the puzzle answer
       break
     }
   }
-  print('ERROR : We should not get here.')
-  #browser()
 }
 
 #for the given antipod and state : Return all valid next destinations for this antipod, and the nr of steps to reach it.
@@ -190,15 +188,13 @@ getantipodmoves <- function(antipod, state){
 #Check if a room is OK to enter. The room type must match the antipod type. Also, all room occupants must be of the correct type.
 checkroom <- function(cell, antipod, state){
   roomtype <- str_sub(cell, 1,1)
-  return(roomtype == str_sub(antipod, 2,2) && all(str_sub(names(state[str_sub(state,1,1) == roomtype]),2,2)==roomtype))   
+  return(roomtype == str_sub(antipod, 2,2) && all(str_sub(names(state[str_sub(state,1,1) == roomtype]),2,2) == roomtype))   
 }
 
 #new statestring:H1-H7, R1-R8 (AABBCCDD)
 v2s <- function(state){
   state2 <- c(H1='.', H2='.', H4='.', H6='.', H8='.', H10='.', H11='.', A1='.', A2='.', A3='.', A4='.', B1='.', B2='.', B3='.', B4='.', C1='.', C2='.', C3='.', C4='.', D1='.', D2='.', D3='.', D4='.')
-  for(i in 1:length(state)){
-    state2[state[i]] <- str_sub(names(state[i]),2,2)
-  }
+  state2[state] <- str_sub(names(state),2,2)
   return(str_c(state2, collapse=''))
 }
 
